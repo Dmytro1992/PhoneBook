@@ -1,14 +1,20 @@
 package phoneBook.PhoneBook.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="users")
 public class User {
 
 	private int id;
 	private String firstName;
 	private String lastName;
 	private String surname;
-	private int number;
+	private String number;
 	private String address;
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	public int getId() {
 		return id;
 	}
@@ -33,10 +39,10 @@ public class User {
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
-	public int getNumber() {
+	public String getNumber() {
 		return number;
 	}
-	public void setNumber(int number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 	public String getAddress() {
