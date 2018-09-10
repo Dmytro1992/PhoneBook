@@ -2,49 +2,116 @@ package phoneBook.PhoneBook.execute.impl;
 
 import java.util.List;
 
+import org.hibernate.Session;
+import org.hibernate.query.Query;
+
 import phoneBook.PhoneBook.execute.Options;
 import phoneBook.PhoneBook.model.User;
+import phoneBook.PhoneBook.util.HibernateUtil;
 
-public class OptionsImpl implements Options{
-
+public class OptionsImpl implements Options {
+	private static Session session = HibernateUtil.getSession();
+	private static List<User> users;
+	
 	public void add(User user) {
-		// TODO Auto-generated method stub
-		
+		try {
+			session = HibernateUtil.getSession();
+			session.beginTransaction();
+			session.save(user);
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	public void remove(User user) {
-		// TODO Auto-generated method stub
-		
+	public void removeByPhonenumber(String phonenumber) {
+		users = searchByNumber(phonenumber);
+		session.beginTransaction();
+		session.delete(users.get(0));
+		session.getTransaction().commit();
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<User> showAllUser() {
-		// TODO Auto-generated method stub
-		return null;
+		users = null;
+		try {
+			session.beginTransaction();
+			users =session.createQuery("FROM User").list();
+			session.getTransaction().commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return users;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<User> searchByFirstName(String firstName) {
-		// TODO Auto-generated method stub
-		return null;
+		users = null;
+		try {
+			session.beginTransaction();
+			users = session.createQuery("FROM User WHERE firstname =" +"'"+firstName+"'").list();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return users;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<User> searchByLastName(String lastName) {
-		// TODO Auto-generated method stub
-		return null;
+		users = null;
+		try {
+			session.beginTransaction();
+			users = session.createQuery("FROM User WHERE lastName =" +"'"+lastName+"'").list();
+			session.getTransaction().commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return users;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<User> searchBySurname(String surname) {
-		// TODO Auto-generated method stub
-		return null;
+		users = null;
+		try {
+			session.beginTransaction();
+			users = session.createQuery("FROM User WHERE surname =" +"'"+surname+"'").list();
+			session.getTransaction().commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return users;
 	}
 
-	public List<User> searchByNumber(int number) {
-		// TODO Auto-generated method stub
-		return null;
+	@SuppressWarnings("unchecked")
+	public List<User> searchByNumber(String number) {
+		users = null;
+		try {
+			session.beginTransaction();
+			users = session.createQuery("FROM User WHERE number =" +"'"+number+"'").list();
+			session.getTransaction().commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return users;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<User> searchByAddress(String address) {
-		// TODO Auto-generated method stub
-		return null;
+		users = null;
+		try {
+			session.beginTransaction();
+			users = session.createQuery("FROM User WHERE address =" +"'"+address+"'").list();
+			session.getTransaction().commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return users;
 	}
 
 }
