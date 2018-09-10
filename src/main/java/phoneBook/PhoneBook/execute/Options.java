@@ -8,7 +8,7 @@ public interface Options {
 
 	void add(User user);
 	
-	void remove(User user);
+	void removeByPhonenumber(String number);
 	
 	List<User> showAllUser();
 	
@@ -18,7 +18,7 @@ public interface Options {
 	
 	List<User> searchBySurname(String surname);
 	
-	List<User> searchByNumber(int number);
+	List<User> searchByNumber(String number);
 	
 	List<User> searchByAddress(String address);
 }
